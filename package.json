@@ -1,0 +1,35 @@
+{
+  "name": "palera1n-gui-electron",
+  "version": "1.0.0",
+  "description": "An Electron app for Palera1n GUI",
+  "author": "Your Name",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "com.yourname.palera1ngui",
+    "productName": "Palera1n GUI",
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    },
+    "mac": {
+      "target": [
+        "dmg"
+      ]
+    },
+    "files": [
+      "**/*"
+    ]
+  },
+  "devDependencies": {
+    "electron": "^25.0.0",
+    "electron-builder": "^25.0.5"
+  },
+  "keywords": [],
+  "license": "ISC"
+}

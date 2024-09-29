@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palera1n GUI</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Assicurati che il file CSS sia nella stessa directory -->
+    <script>
+        function sendRequest(endpoint) {
+            fetch(endpoint, { method: 'POST' })
+                .then(response => response.json())
+                .then(data => alert(data.message))
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+</head>
+<body>
+    <h1 alt="title">Palera1n GUI</h1>
+    <img src="Palera1n.png" alt="logo" width="150" height="150" class="logo">
+    <br/><br/>
+    <h3>Rootful</h3>
+    <br/>
+    <button onclick="sendRequest('/create_fakefs')">Create FakeFS</button>
+    <button onclick="sendRequest('/create_bindfs')">Create BindFS</button>
+    <button onclick="sendRequest('/boot_only')">Boot Only</button>
+    <button onclick="sendRequest('/force_revert')">Force Revert</button>
+    <br/><br/>
+    <h3>Rootless</h3>
+    <br/>
+    <button onclick="sendRequest('/boot_rootless')">Boot</button>
+    <button onclick="sendRequest('/force_revertl')">Force Revert</button>
+    <button onclick="sendRequest('/exit_recovery')">Exit Recovery</button>
+</body>
+</html>
