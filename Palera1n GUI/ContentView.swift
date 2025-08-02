@@ -1,20 +1,31 @@
-//
-//  ContentView.swift
-//  Palera1n GUI
-//
-//  Created by Checkm8Croft on 27/09/24, modified by timi2506 on 20/10/24
-//
 import SwiftUI
 
+struct ModeButtonStyle: ButtonStyle {
+    var backgroundColor: Color
+    var foregroundColor: Color = .white
+
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .font(.headline)
+            .frame(width: 120, height: 40)
+            .foregroundColor(foregroundColor)
+            .background(backgroundColor.opacity(configuration.isPressed ? 0.6 : 0.8))
+            .cornerRadius(10)
+            .shadow(radius: 5)
+            .opacity(configuration.isPressed ? 0.9 : 1)
+    }
+}
+
 struct ContentView: View {
+    @State private var showInstructions = false
+
     var body: some View {
         ZStack {
-            // Full-screen gradient background
             LinearGradient(gradient: Gradient(colors: [.blue, .purple]),
                            startPoint: .top,
                            endPoint: .bottom)
-                .ignoresSafeArea() // Make sure background spans the entire window
-            
+                .ignoresSafeArea()
+
             VStack(spacing: 20) {
                 Image("Palera1n")
                     .resizable()
@@ -22,68 +33,96 @@ struct ContentView: View {
                     .cornerRadius(15)
                     .shadow(radius: 10)
                     .padding(.top, 40)
-                
+
                 Text("Palera1n GUI")
                     .font(.system(size: 32, weight: .bold, design: .rounded))
                     .foregroundColor(.white)
                     .padding(.bottom, 5)
-                
+
                 Text("Unofficial Project!")
                     .font(.headline)
                     .foregroundColor(.red)
                     .padding(.bottom, 20)
-                
-                Group {
+
+                VStack(spacing: 10) {
                     Text("Rootful Mode")
                         .font(.title2)
                         .fontWeight(.semibold)
-                        .foregroundColor(.white)
-                    
+                        .foregroundColor(.blue)
+
                     HStack(spacing: 20) {
-                        customButton(title: "Create FakeFS", action: { runScript(arguments: ["-f", "-c"]) })
-                        customButton(title: "Create BindFS", action: { runScript(arguments: ["-f", "-B"]) })
-                        customButton(title: "Boot Only", action: { runScript(arguments: ["-f"]) })
-                        customButton(title: "Force Revert", action: { runScript(arguments: ["-f", "--force-revert"]) })
-                    }
-                    .padding(.bottom, 20)
-                    
-                    Text("Rootless and Exit Recovery")
-                        .font(.title2)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.white)
-                    
-                    HStack(spacing: 20) {
-                        customButton(title: "Boot", action: { runScript(arguments: ["-l"]) })
-                        customButton(title: "Force Revert", action: { runScript(arguments: ["-l", "--force-revert"]) })
-                        customButton(title: "Exit Recovery", action: { runScript(arguments: ["-n"]) })
+                        Button("Create FakeFS") {
+                            runScript(arguments: ["-f", "-c"])
+                        }
+                        .buttonStyle(ModeButtonStyle(backgroundColor: .blue))
+
+                        Button("Create BindFS") {
+                            runScript(arguments: ["-f", "-B"])
+                        }
+                        .buttonStyle(ModeButtonStyle(backgroundColor: .blue))
+
+                        Button("Boot Only") {
+                            runScript(arguments: ["-f"])
+                        }
+                        .buttonStyle(ModeButtonStyle(backgroundColor: .blue))
+
+                        Button("Force Revert") {
+                            runScript(arguments: ["-f", "--force-revert"])
+                        }
+                        .buttonStyle(ModeButtonStyle(backgroundColor: .blue))
                     }
                 }
+                .padding(.bottom, 20)
+
+                VStack(spacing: 10) {
+                    Text("Rootless Mode")
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.green)
+
+                    HStack(spacing: 20) {
+                        Button("Boot") {
+                            runScript(arguments: ["-l"])
+                        }
+                        .buttonStyle(ModeButtonStyle(backgroundColor: .green))
+
+                        Button("Force Revert") {
+                            runScript(arguments: ["-l", "--force-revert"])
+                        }
+                        .buttonStyle(ModeButtonStyle(backgroundColor: .green))
+
+                        Button("Exit Recovery") {
+                            runScript(arguments: ["-n"])
+                        }
+                        .buttonStyle(ModeButtonStyle(backgroundColor: .green))
+                    }
+                }
+
+                HStack {
+                    Button("Don't know which to use?") {
+                        showInstructions = true
+                    }
+                    .foregroundColor(.white)
+                    .padding(.top, 10)
+                }
+                .frame(maxWidth: .infinity, alignment: .trailing)
+                .padding(.trailing)
             }
             .padding()
             .frame(width: 600)
         }
+        .sheet(isPresented: $showInstructions) {
+            InstructionsView()
+                .background(Color.black)
+        }
     }
-    
+
     func runScript(arguments: [String]) {
         let scriptPath = Bundle.main.path(forResource: "Palera1n", ofType: "py")!
         let task = Process()
         task.launchPath = "/usr/bin/env"
         task.arguments = ["python3", scriptPath] + arguments
         task.launch()
-    }
-    
-    // Custom Button with no grey background
-    func customButton(title: String, action: @escaping () -> Void) -> some View {
-        Button(action: action) {
-            Text(title)
-                .font(.headline)
-                .frame(width: 120, height: 40)
-                .foregroundColor(.white)
-                .background(Color.blue.opacity(0.8))
-                .cornerRadius(10)
-                .shadow(radius: 5)
-        }
-        .buttonStyle(PlainButtonStyle()) // Removes default button style to avoid grey background
     }
 }
 
