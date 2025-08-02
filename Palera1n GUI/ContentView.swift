@@ -34,39 +34,39 @@ struct ContentView: View {
                     .shadow(radius: 10)
                     .padding(.top, 40)
 
-                Text("Palera1n GUI")
+                Text(NSLocalizedString("app_title", comment: "App Title"))
                     .font(.system(size: 32, weight: .bold, design: .rounded))
                     .foregroundColor(.white)
                     .padding(.bottom, 5)
 
-                Text("Unofficial Project!")
+                Text(NSLocalizedString("unofficial_project", comment: "Unofficial project text"))
                     .font(.headline)
                     .foregroundColor(.red)
                     .padding(.bottom, 20)
 
                 VStack(spacing: 10) {
-                    Text("Rootful Mode")
+                    Text(NSLocalizedString("rootful_title", comment: "Rootful Title"))
                         .font(.title2)
                         .fontWeight(.semibold)
                         .foregroundColor(.blue)
 
                     HStack(spacing: 20) {
-                        Button("Create FakeFS") {
+                        Button(NSLocalizedString("create_fakefs", comment: "Create FakeFS")) {
                             runScript(arguments: ["-f", "-c"])
                         }
                         .buttonStyle(ModeButtonStyle(backgroundColor: .blue))
 
-                        Button("Create BindFS") {
+                        Button(NSLocalizedString("create_bindfs", comment: "Create BindFS")) {
                             runScript(arguments: ["-f", "-B"])
                         }
                         .buttonStyle(ModeButtonStyle(backgroundColor: .blue))
 
-                        Button("Boot Only") {
+                        Button(NSLocalizedString("boot_only", comment: "Boot Only")) {
                             runScript(arguments: ["-f"])
                         }
                         .buttonStyle(ModeButtonStyle(backgroundColor: .blue))
 
-                        Button("Force Revert") {
+                        Button(NSLocalizedString("force_revert", comment: "Force Revert")) {
                             runScript(arguments: ["-f", "--force-revert"])
                         }
                         .buttonStyle(ModeButtonStyle(backgroundColor: .blue))
@@ -75,23 +75,23 @@ struct ContentView: View {
                 .padding(.bottom, 20)
 
                 VStack(spacing: 10) {
-                    Text("Rootless Mode")
+                    Text(NSLocalizedString("rootless_title", comment: "Rootless Title"))
                         .font(.title2)
                         .fontWeight(.semibold)
                         .foregroundColor(.green)
 
                     HStack(spacing: 20) {
-                        Button("Boot") {
+                        Button(NSLocalizedString("boot", comment: "Boot")) {
                             runScript(arguments: ["-l"])
                         }
                         .buttonStyle(ModeButtonStyle(backgroundColor: .green))
 
-                        Button("Force Revert") {
+                        Button(NSLocalizedString("force_revert", comment: "Force Revert")) {
                             runScript(arguments: ["-l", "--force-revert"])
                         }
                         .buttonStyle(ModeButtonStyle(backgroundColor: .green))
 
-                        Button("Exit Recovery") {
+                        Button(NSLocalizedString("exit_recovery", comment: "Exit Recovery")) {
                             runScript(arguments: ["-n"])
                         }
                         .buttonStyle(ModeButtonStyle(backgroundColor: .green))
@@ -99,7 +99,7 @@ struct ContentView: View {
                 }
 
                 HStack {
-                    Button("Don't know which to use?") {
+                    Button(NSLocalizedString("instruction_button", comment: "Show Instructions")) {
                         showInstructions = true
                     }
                     .foregroundColor(.white)
@@ -118,12 +118,33 @@ struct ContentView: View {
     }
 
     func runScript(arguments: [String]) {
-        let scriptPath = Bundle.main.path(forResource: "Palera1n", ofType: "py")!
+        guard let scriptPath = Bundle.main.path(forResource: "Palera1n", ofType: "py") else {
+            print("Script not found")
+            return
+        }
+
+        let argsString = arguments.joined(separator: " ")
+        let command = "python3 '\(scriptPath)' \(argsString)"
+        
+        let appleScript = """
+        tell application "Terminal"
+            activate
+            if (count of windows) is 0 then
+                do script "\(command)"
+            else
+                do script "\(command)" in front window
+            end if
+        end tell
+        """
+        
         let task = Process()
-        task.launchPath = "/usr/bin/env"
-        task.arguments = ["python3", scriptPath] + arguments
+        task.launchPath = "/usr/bin/osascript"
+        task.arguments = ["-e", appleScript]
         task.launch()
     }
+
+
+
 }
 
 #Preview {

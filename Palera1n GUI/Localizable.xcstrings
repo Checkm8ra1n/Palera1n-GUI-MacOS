@@ -1,0 +1,369 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "• %@" : {
+      "localizations" : {
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "• %@"
+          }
+        }
+      }
+    },
+    "app_title" : {
+      "comment" : "App Title",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Palera1n GUI"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Palera1n GUI"
+          }
+        }
+      }
+    },
+    "boot" : {
+      "comment" : "Boot",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Boot"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Boot"
+          }
+        }
+      }
+    },
+    "boot_only" : {
+      "comment" : "Boot Only",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Boot Only"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Solo Boot"
+          }
+        }
+      }
+    },
+    "Check Device Info" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check Device Info"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Controlla Info Dispositivo"
+          }
+        }
+      }
+    },
+    "create_bindfs" : {
+      "comment" : "Create BindFS",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create BindFS"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crea BindFS"
+          }
+        }
+      }
+    },
+    "create_fakefs" : {
+      "comment" : "Create FakeFS",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create FakeFS"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crea FakeFS"
+          }
+        }
+      }
+    },
+    "exit_recovery" : {
+      "comment" : "Exit Recovery",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exit Recovery"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esci da Recovery"
+          }
+        }
+      }
+    },
+    "force_revert" : {
+      "comment" : "Force Revert",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Force Revert"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Elimina Jailbreak"
+          }
+        }
+      }
+    },
+    "instruction_button" : {
+      "comment" : "Show Instructions",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Don’t know which to use?"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non sai quale usare?"
+          }
+        }
+      }
+    },
+    "iOS Version: %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS Version: %@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Versione di iOS: %@"
+          }
+        }
+      }
+    },
+    "Key" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Key"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chiave"
+          }
+        }
+      }
+    },
+    "Model: %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Model: %@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Modello: %@"
+          }
+        }
+      }
+    },
+    "rootful_1" : {
+      "comment" : "Rootful instruction 1",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deprecated mode, for older tweaks, better rootless to use"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Modalità obsoleta, per i tweak più vecchi, meglio se usi rootless"
+          }
+        }
+      }
+    },
+    "rootful_2" : {
+      "comment" : "Rootful instruction 2",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "First click on Create FakeFS, (or BindFS for 16GB devices) and follow the instructions on the terminal"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Per prima cosa clicca su Crea FakeFS, (o BindFS se hai un dispositivo con 16GB) e segui le istruzioni nel terminale"
+          }
+        }
+      }
+    },
+    "rootful_3" : {
+      "comment" : "Rootful instruction 3",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Once finished, click on Boot Only, follow the instructions again and enjoy!"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Una volta finito, clicca su Solo Boot, segui di nuovo le istruzioni e fine!"
+          }
+        }
+      }
+    },
+    "rootful_title" : {
+      "comment" : "Rootful Title",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rootful"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rootful"
+          }
+        }
+      }
+    },
+    "rootless_1" : {
+      "comment" : "Rootless instruction 1",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rootless is more simple and faster to use, "
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rootless è più semplice e veloce da usare"
+          }
+        }
+      }
+    },
+    "rootless_2" : {
+      "comment" : "Rootless instruction 2",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Just click on Boot, follow the terminal instructions, once finished connect to wifi your iDevice and you should see Palera1n on your homescreen and enjoy!"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clicca su Boot, segui le istruzioni nel terminale, una volta finito, connetti al wifi il tuo dispositivo e dovresti vedere Palera1n nel tua schermata home, fine!"
+          }
+        }
+      }
+    },
+    "rootless_title" : {
+      "comment" : "Rootless Title",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rootless"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rootless"
+          }
+        }
+      }
+    },
+    "Supported: %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supported: %@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supportato: %@"
+          }
+        }
+      }
+    },
+    "unofficial_project" : {
+      "comment" : "Unofficial project text",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unofficial Project"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Progetto non ufficiale!"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

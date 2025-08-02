@@ -3,32 +3,29 @@ import SwiftUI
 struct InstructionsView: View {
     var body: some View {
         VStack(spacing: 30) {
-            
-            // Rootful Block
             VStack(alignment: .leading, spacing: 10) {
-                Text("Rootful Mode")
+                Text(NSLocalizedString("rootful_title", comment: "Rootful Title"))
                     .font(.title2)
                     .fontWeight(.bold)
                     .foregroundColor(.blue)
-                
-                Text("• Deprecated mode for new tweaks, better to use Rootless.")
-                Text("• To install Rootful, first click on Create FakeFS (BindFS is for 16GB devices).")
-                Text("• Once you finish the process, you can proceed with the Boot Only button.")
+
+                Text("• \(NSLocalizedString("rootful_1", comment: "Rootful instruction 1"))")
+                Text("• \(NSLocalizedString("rootful_2", comment: "Rootful instruction 2"))")
+                Text("• \(NSLocalizedString("rootful_3", comment: "Rootful instruction 3"))")
             }
             .padding()
             .background(Color.blue.opacity(0.1))
             .cornerRadius(12)
             .frame(maxWidth: .infinity, alignment: .leading)
-            
-            // Rootless Block
+
             VStack(alignment: .leading, spacing: 10) {
-                Text("Rootless Mode")
+                Text(NSLocalizedString("rootless_title", comment: "Rootless Title"))
                     .font(.title2)
                     .fontWeight(.bold)
                     .foregroundColor(.green)
-                
-                Text("• The easiest and fastest option.")
-                Text("• Just use the Boot button, keep your device connected to the network, and enjoy.")
+
+                Text("• \(NSLocalizedString("rootless_1", comment: "Rootless instruction 1"))")
+                Text("• \(NSLocalizedString("rootless_2", comment: "Rootless instruction 2"))")
             }
             .padding()
             .background(Color.green.opacity(0.1))
