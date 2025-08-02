@@ -1,138 +1,145 @@
 import sys
-import subprocess
-import os
 from PySide6.QtWidgets import (
-    QApplication, QWidget, QPushButton, QLabel, QVBoxLayout,
-    QHBoxLayout, QSpacerItem, QSizePolicy
+    QApplication, QWidget, QVBoxLayout, QHBoxLayout, QLabel,
+    QPushButton, QMessageBox
 )
-from PySide6.QtGui import QPixmap, QFont, QPalette, QColor
-from PySide6.QtCore import Qt
+from PySide6.QtGui import QPixmap, QPalette, QColor, QLinearGradient, QBrush, QFont
+from PySide6.QtCore import Qt, QProcess
+import shutil
 
-
-def run_palera1n(arguments):
-    try:
-        subprocess.Popen(["python3", "Palera1n.py"] + arguments)
-    except Exception as e:
-        print(f"Error running Palera1n.py: {e}")
-
-
-class InstructionsWindow(QWidget):
-    def __init__(self):
-        super().__init__()
-        self.setWindowTitle("Instructions")
-        self.setFixedSize(450, 220)
-
-        layout = QVBoxLayout()
-
-        rootful = QLabel("Rootful Mode:\n"
-                         "Deprecated mode for new tweaks. Use only if necessary.\n"
-                         "Use 'Create FakeFS' (or 'BindFS' for 16GB devices), then 'Boot Only'.")
-        rootful.setWordWrap(True)
-        rootful.setStyleSheet("color: #2A73FF; font-weight: bold;")
-        layout.addWidget(rootful)
-
-        rootless = QLabel("Rootless Mode:\n"
-                          "Recommended for modern jailbreaks.\n"
-                          "Simply click 'Boot', make sure your device is connected to the network.")
-        rootless.setWordWrap(True)
-        rootless.setStyleSheet("color: #1DC690; font-weight: bold;")
-        layout.addWidget(rootless)
-
-        self.setLayout(layout)
 
 
 class Palera1nGUI(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Palera1n GUI")
-        self.setFixedSize(600, 500)
+        self.setFixedSize(600, 700)
 
-        # Background like SwiftUI
-        palette = QPalette()
-        palette.setColor(QPalette.Window, QColor("#0c0c0e"))
-        self.setAutoFillBackground(True)
-        self.setPalette(palette)
+        self.setupUI()
+        self.setGradientBackground()
 
-        self.init_ui()
-
-    def init_ui(self):
+    def setupUI(self):
         layout = QVBoxLayout()
-        layout.setSpacing(20)
 
-        # Image
-        image = QLabel()
-        image_path = os.path.join(os.path.dirname(__file__), "palera1n.png")
-        if os.path.exists(image_path):
-            pixmap = QPixmap(image_path).scaled(100, 100, Qt.KeepAspectRatio, Qt.SmoothTransformation)
-            image.setPixmap(pixmap)
-            image.setAlignment(Qt.AlignCenter)
-            layout.addWidget(image)
+        # Logo
+        logo = QLabel()
+        pixmap = QPixmap("Palera1n.png").scaled(180, 180, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+        logo.setPixmap(pixmap)
+        logo.setAlignment(Qt.AlignCenter)
+        layout.addWidget(logo)
 
         # Title
         title = QLabel("Palera1n GUI")
-        title.setFont(QFont("Arial", 24, QFont.Bold))
+        title.setFont(QFont("Arial", 28, QFont.Bold))
         title.setStyleSheet("color: white;")
         title.setAlignment(Qt.AlignCenter)
         layout.addWidget(title)
 
-        subtitle = QLabel("Unofficial Project")
-        subtitle.setStyleSheet("color: red;")
+        # Subtitle
+        subtitle = QLabel("Unofficial Project!")
+        subtitle.setStyleSheet("color: red; font-size: 18px;")
         subtitle.setAlignment(Qt.AlignCenter)
         layout.addWidget(subtitle)
 
-        # Rootful section
-        layout.addLayout(self.create_section(
-            "Rootful Mode", "#2A73FF",
-            [("Create FakeFS", ["-f", "-c"]),
-             ("Create BindFS", ["-f", "-B"]),
-             ("Boot Only", ["-f"]),
-             ("Force Revert", ["-f", "--force-revert"])]
-        ))
+        layout.addSpacing(25)
 
-        # Rootless section
-        layout.addLayout(self.create_section(
-            "Rootless Mode", "#1DC690",
-            [("Boot", ["-l"]),
-             ("Force Revert", ["-l", "--force-revert"]),
-             ("Exit Recovery", ["-n"])]
-        ))
+        # Rootful Section
+        rootful_title = QLabel("Rootful Mode")
+        rootful_title.setFont(QFont("Arial", 20, QFont.Bold))
+        rootful_title.setStyleSheet("color: #66ccff;")
+        rootful_title.setAlignment(Qt.AlignCenter)
+        layout.addWidget(rootful_title)
 
-        # Bottom right button
-        bottom_row = QHBoxLayout()
-        bottom_row.addItem(QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum))
-        instructions_btn = QPushButton("Instructions")
-        instructions_btn.clicked.connect(self.show_instructions)
-        bottom_row.addWidget(instructions_btn)
-        layout.addLayout(bottom_row)
+        rootful_buttons = self.createButtonRow([
+            ("Create FakeFS", ["-f", "-c"]),
+            ("Create BindFS", ["-f", "-B"]),
+            ("Boot Only", ["-f"]),
+            ("Force Revert", ["-f", "--force-revert"]),
+        ], color="#007BFF")
+        layout.addLayout(rootful_buttons)
+        layout.addSpacing(30)
+
+        # Rootless Section
+        rootless_title = QLabel("Rootless Mode & Exit Recovery")
+        rootless_title.setFont(QFont("Arial", 20, QFont.Bold))
+        rootless_title.setStyleSheet("color: #66ff66;")
+        rootless_title.setAlignment(Qt.AlignCenter)
+        layout.addWidget(rootless_title)
+
+        rootless_buttons = self.createButtonRow([
+            ("Boot", ["-l"]),
+            ("Force Revert", ["-l", "--force-revert"]),
+            ("Exit Recovery", ["-n"]),
+        ], color="#28a745")
+        layout.addLayout(rootless_buttons)
+
+        # Instructions button aligned right
+        instr_layout = QHBoxLayout()
+        instr_layout.addStretch()
+        help_btn = QPushButton("Don't know which to use?")
+        help_btn.setStyleSheet("background-color: gray; color: white; padding: 6px 18px; border-radius: 12px; font-weight: bold;")
+        help_btn.clicked.connect(self.showInstructions)
+        instr_layout.addWidget(help_btn)
+        layout.addLayout(instr_layout)
 
         self.setLayout(layout)
 
-    def create_section(self, title, color, buttons):
-        section_layout = QVBoxLayout()
-
-        label = QLabel(title)
-        label.setFont(QFont("Arial", 16, QFont.Bold))
-        label.setStyleSheet(f"color: {color};")
-        section_layout.addWidget(label)
-
-        btn_row = QHBoxLayout()
-        for btn_text, args in buttons:
-            btn = QPushButton(btn_text)
+    def createButtonRow(self, button_defs, color):
+        row = QHBoxLayout()
+        for label, args in button_defs:
+            btn = QPushButton(label)
             btn.setStyleSheet(f"""
-                background-color: {color};
-                color: white;
-                border-radius: 10px;
-                height: 40px;
+                QPushButton {{
+                    background-color: {color};
+                    color: white;
+                    padding: 12px;
+                    border-radius: 10px;
+                    font-weight: bold;
+                }}
+                QPushButton:hover {{
+                    background-color: #555;
+                }}
             """)
-            btn.clicked.connect(lambda _, a=args: run_palera1n(a))
-            btn_row.addWidget(btn)
+            btn.clicked.connect(lambda _, a=args: self.runScript(a))
+            row.addWidget(btn)
+        return row
 
-        section_layout.addLayout(btn_row)
-        return section_layout
+    def runScript(self, arguments):
+        import shutil
+        python_path = shutil.which("python3") or "python3"
+        palera1n_path = "Palera1n.py"  # o percorso assoluto
 
-    def show_instructions(self):
-        self.instructions_window = InstructionsWindow()
-        self.instructions_window.show()
+        cmd = [python_path, palera1n_path] + arguments
+        terminal = shutil.which("gnome-terminal")
+        if terminal:
+            full_cmd = [terminal, "--"] + cmd
+            print("Running:", full_cmd)
+            # terminal + args
+            QProcess.startDetached(full_cmd[0], full_cmd[1:])
+        else:
+            print("gnome-terminal not found, running without terminal")
+            QProcess.startDetached(cmd[0], cmd[1:])
+
+
+
+    def showInstructions(self):
+        QMessageBox.information(self, "Instructions",
+            "Rootful mode:\n"
+            "- Deprecated for new tweaks, better to use Rootless.\n"
+            "- First click on 'Create FakeFS' (or 'BindFS' for 16GB devices).\n"
+            "- Then click 'Boot Only'.\n\n"
+            "Rootless mode:\n"
+            "- Easiest and fastest. Just click 'Boot' and make sure your device is on the network."
+        )
+
+    def setGradientBackground(self):
+        palette = QPalette()
+        gradient = QLinearGradient(0, 0, 0, self.height())
+        gradient.setColorAt(0.0, QColor("#3a7bd5"))
+        gradient.setColorAt(1.0, QColor("#6a3093"))
+        palette.setBrush(QPalette.Window, QBrush(gradient))
+        self.setAutoFillBackground(True)
+        self.setPalette(palette)
 
 
 if __name__ == "__main__":
