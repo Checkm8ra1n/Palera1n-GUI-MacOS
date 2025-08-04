@@ -1,5 +1,5 @@
 ## Palera1n GUI
-Palera1n GUI for MacOS and Linux (see unix branch)
+Palera1n GUI for MacOS and Linux [see unix branch](https://github.com/Checkm8ra1n/Palera1n-GUI/tree/unix)
 ## Changelog
 ## 1.3
 Added:
