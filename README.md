@@ -1,5 +1,5 @@
 ## Palera1n GUI
-Palera1n GUI for MacOS and Linux (see linux branch)
+Palera1n GUI for MacOS and Linux (see unix branch)
 ## Changelog
 ## 1.3
 Added:
